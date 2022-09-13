@@ -1,37 +1,36 @@
-NAME := libtm.a
-SRCS_LIST := tm_list.c
-SRCS_VECTOR := tm_vector.c
-SRCS_STACK := tm_stack.c
-OBJS_LIST := $(SRCS_LIST:.c=.o)
-OBJS_VECTOR := $(SRCS_VECTOR:.c=.o)
-OBJS_STACK := $(SRCS_STACK:.c=.o)
+#
+# Makefile
+#
+
+NAME ?= libtm.a
+
 CC ?= cc
 LD ?= cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS ?= -Wall -Wextra -Werror -pedantic
 
-.PHONY: all list vector stack debug clean fclean re
+BUILD_DIR := ./build
+SRC_DIR := ./src
 
-all: $(NAME) list vector stack
+SRCS := tm_list.c tm_stack.c tm_vector.c
+OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-list: $(NAME) $(OBJS_LIST)
-	ar r $^
+$(NAME): $(OBJS)
+	ar r $(NAME) $^
 
-vector: $(NAME) $(OBJS_VECTOR)
-	ar r $^
-
-stack: $(NAME) $(OBJS_STACK)
-	ar r $^
+.PHONY: debug clean fclean re
 
 debug: CFLAGS += -g3
 debug: re
 
 clean:
-	rm -f $(OBJS_LIST) $(OBJS_VECTOR) $(OBJS_STACK)
+	rm -f $(OBJS)
 
 fclean: clean
+	rm -rf $(BUILD_DIR)
 	rm -f $(NAME)
 
-re: fclean all
+re: fclean $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@

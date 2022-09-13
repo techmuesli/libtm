@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "tm_vector.h"
+#include "../include/tm_vector.h"
 
 static void	*vector_resize(tm_vector_t *vector);
 static void	copy_data(tm_vector_t *vector, void **new);

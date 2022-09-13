@@ -5,8 +5,8 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tm_list.h"
-#include "tm_stack.h"
+#include "../include/tm_list.h"
+#include "../include/tm_stack.h"
 
 static void			**list_init_nodes(tm_list_t *list, size_t count, size_t size);
 static void			set_up_nodes(void **nodes, char *buf, size_t count, size_t size);

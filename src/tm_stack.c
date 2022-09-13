@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "tm_stack.h"
+#include "../include/tm_stack.h"
 
 static int	stack_resize(tm_stack_t *stack);
 
