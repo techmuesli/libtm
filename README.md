@@ -7,6 +7,6 @@ libtm is an assortment of useful c modules including different data structures, 
 
 ## Modules
 
-tm_list
-tm_stack
-tm_vector
+* tm_list
+* tm_stack
+* tm_vector
