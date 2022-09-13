@@ -9,6 +9,7 @@ LD ?= cc
 CFLAGS ?= -Wall -Wextra -Werror -pedantic
 
 BUILD_DIR := ./build
+INC_DIR := ./include
 SRC_DIR := ./src
 
 SRCS := tm_list.c tm_stack.c tm_vector.c
@@ -33,4 +34,4 @@ re: fclean $(NAME)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
