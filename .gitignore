@@ -3,3 +3,8 @@
 
 # ignore the /build directory
 build/
+
+# ignore example binaries
+examples/list
+examples/stack
+examples/vector

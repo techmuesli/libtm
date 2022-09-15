@@ -9,6 +9,7 @@ LD ?= cc
 CFLAGS ?= -Wall -Wextra -Werror -pedantic
 
 BUILD_DIR := ./build
+EXAMPLES_DIR := ./examples
 INC_DIR := ./include
 SRC_DIR := ./src
 
@@ -18,19 +19,23 @@ OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 $(NAME): $(OBJS)
 	ar r $(NAME) $^
 
-.PHONY: debug clean fclean re
+.PHONY: all examples debug clean re
+
+all: $(NAME) examples
+
+examples: $(NAME)
+	$(MAKE) -C $(EXAMPLES_DIR)
 
 debug: CFLAGS += -g3
 debug: re
 
 clean:
+	$(MAKE) clean -C $(EXAMPLES_DIR)
 	rm -f $(OBJS)
-
-fclean: clean
 	rm -rf $(BUILD_DIR)
 	rm -f $(NAME)
 
-re: fclean $(NAME)
+re: clean $(NAME)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(BUILD_DIR)
