@@ -2,7 +2,7 @@
 # Makefile
 #
 
-NAME ?= libtm.a
+NAME := libtm.a
 
 CC ?= cc
 LD ?= cc

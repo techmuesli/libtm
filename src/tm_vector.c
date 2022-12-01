@@ -4,7 +4,20 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "tm_vector.h"
+
+typedef void	(*tm_vector_cleanup_cb_t)(void *data);
+
+typedef struct tm_vector_s
+{
+	size_t					capacity;
+	size_t					total;
+	size_t					grow_count;
+	size_t					data_size;
+	tm_vector_cleanup_cb_t	cleanup_cb;
+	void					**nodes;
+}				tm_vector_t;
+
+void	*tm_vector_get(tm_vector_t *vector, int index);
 
 static void	*vector_resize(tm_vector_t *vector);
 static void	copy_data(tm_vector_t *vector, void **new);
