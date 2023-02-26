@@ -77,7 +77,8 @@ void	tm_stack_clear(tm_stack_t *stack)
 
 void	*tm_stack_push(tm_stack_t *stack, void *node)
 {
-	size_t	index;
+	char	*buf;
+	size_t	index;	
 
 	index = stack->total;
 	if (index == stack->capacity)
@@ -86,11 +87,15 @@ void	*tm_stack_push(tm_stack_t *stack, void *node)
 			return (NULL);
 	}
 	if (stack->data_size == 0)
+	{
 		stack->nodes[index] = node;
-	else
-		memcpy(stack->nodes[index], node, stack->data_size);
+		stack->total++;
+		return (stack->nodes[index]);
+	}
+	buf = (char *)stack->nodes;
+	memcpy(&buf[stack->total * stack->data_size], node, stack->data_size);
 	stack->total++;
-	return (stack->nodes[index]);
+	return (&buf[index * stack->data_size]);
 }
 
 static int	stack_resize(tm_stack_t *stack)
@@ -119,8 +124,11 @@ static int	stack_resize(tm_stack_t *stack)
 
 void	*tm_stack_pop(tm_stack_t *stack)
 {
+	char	*buf;
+
 	if (stack->total == 0)
 		return (NULL);
 	stack->total--;
-	return (stack->nodes[stack->total]);
+	buf = (char *)stack->nodes;
+	return (&buf[stack->total * stack->data_size]);
 }

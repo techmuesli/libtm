@@ -106,8 +106,6 @@ static tm_stack_t	*list_init_stack(void **nodes, size_t count)
 	return (stack);
 }
 
-// callback should free everything, but the data pointer itself
-// !!!!! stack_cleanup() is not called !!!!! check to call it
 void	tm_list_cleanup(tm_list_t *list)
 {
 	node_t	*node;
@@ -136,7 +134,6 @@ void	tm_list_custom_cleanup(tm_list_t *list, void (*cleanup_cb)(void *data))
 	list->cleanup_cb = cleanup_cb;
 }
 
-/* rename to list_add_back ? !!!!! */
 void	*tm_list_add(tm_list_t *list, void *data)
 {
 	node_t	*node;
@@ -168,7 +165,6 @@ void	*tm_list_add(tm_list_t *list, void *data)
 
 //void	*list_add_before(tm_list_t *list, void *data);
 
-/* if possible -> change to list_add_before */
 void	*tm_list_add_front(tm_list_t *list, void *data)
 {
 	node_t	*node;
@@ -224,7 +220,6 @@ static int	list_resize(tm_list_t *list)
 	return (0);
 }
 
-/* possbile optimization for while() */
 static int	list_add_new_nodes(tm_list_t *list, void **nodes)
 {
 	char	*buf;
@@ -254,7 +249,6 @@ static int	list_add_new_nodes(tm_list_t *list, void **nodes)
 	return (0);
 }
 
-/* !!!!! discuss how current should be handled on delete */
 void	tm_list_delete(tm_list_t *list)
 {
 	node_t	*node;

@@ -111,6 +111,8 @@ void	*tm_vector_add_index(tm_vector_t *vector, void *data, int index)
 {
 	char	*buf;
 
+	if (index < 0 || index > (int)vector->total)
+		return (NULL);
 	if (vector->total == vector->capacity)
 	{
 		if (vector_resize(vector) == NULL)
@@ -188,7 +190,8 @@ void	tm_vector_delete(tm_vector_t *vector, int index)
 		return ;
 	if (vector->data_size == 0)
 	{
-		vector->cleanup_cb(vector->nodes[index]);
+		if (vector->cleanup_cb != NULL)
+			vector->cleanup_cb(vector->nodes[index]);
 		free(vector->nodes[index]);
 		i = index;
 		while (i < vector->total - 1)
@@ -201,7 +204,8 @@ void	tm_vector_delete(tm_vector_t *vector, int index)
 	else
 	{
 		buf = (char *)vector->nodes;
-		vector->cleanup_cb(&buf[index * vector->data_size]);
+		if (vector->cleanup_cb != NULL)
+			vector->cleanup_cb(&buf[index * vector->data_size]);
 		memmove(&buf[index * vector->data_size], &buf[(index + 1) * vector->data_size],
 			(vector->total - (index + 1)) * vector->data_size);
 	}
