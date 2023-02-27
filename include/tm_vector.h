@@ -3,9 +3,13 @@
 //
 
 #ifndef TM_VECTOR_H
-# define TM_VECTOR_H
+#define TM_VECTOR_H
 
-# include <stdlib.h>
+#include <stdlib.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef void tm_vector_t;
 
@@ -17,5 +21,10 @@ void		*tm_vector_add(tm_vector_t *vector, void *data);
 void		*tm_vector_add_index(tm_vector_t *vector, void *data, int index);
 void		*tm_vector_get(tm_vector_t *vector, int index);
 void		tm_vector_delete(tm_vector_t *vector, int index);
+size_t		tm_vector_size(tm_vector_t *vector);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

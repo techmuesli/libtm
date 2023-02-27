@@ -211,3 +211,8 @@ void	tm_vector_delete(tm_vector_t *vector, int index)
 	}
 	vector->total--;
 }
+
+size_t	tm_vector_size(tm_vector_t *vector)
+{
+	return (vector->total);
+}
